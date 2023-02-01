@@ -23,6 +23,7 @@ void heapSort(Employee *A, int n)
 	// TODO - swap A[n-1] with A[0], since A[0] is the smallest number.
 	// TODO - A[n-1] now sorted in place, so decrement n
 	// TODO - Heapify the elements from A[0] up to A[n-1] (which leaves the newly sorted element alone)
+	//heapify(tempEmp, );
 }
 
 /**
@@ -36,6 +37,10 @@ void heapSort(Employee *A, int n)
 void buildHeap(Employee *A, int n)
 {
 	// TODO - heapify() every element from A[n/2] down-to A[0]
+	int max = sizeof(*A) / 2;
+	for(int i = max; i > 0; i++){
+		heapify(A, i, n);
+	}
 }
 
 /**
@@ -46,15 +51,42 @@ void buildHeap(Employee *A, int n)
  * @param	i	Index of current element to heapify
  * @param	n	Size of the heap
  */
+
 void heapify(Employee *A, int i, int n)
 {
 	// TODO - get index of left child of element i
+	int leftIndex = 2 * (i+1)-1;
+
 	// TODO - get index of right child of element i
+	int rightIndex = 2 * (i+1);
 
 	// TODO - determine which child has a smaller salary. We'll call the index of this
 	//		element: "smaller"
+	Employee leftEmp = A[leftIndex];
+	Employee rightEmp = A[rightIndex];
+	Employee currEmp = A[i];
+	Employee *currEmpLoc = &A[i];
+
+	int rightEmpSal = leftEmp.salary;
+	int leftEmpSal = rightEmp.salary;
+	int currSal = currEmp.salary;
+
+	int smaller = leftEmpSal;
+	Employee smallerEmp = leftEmp;
+
+	if(rightEmpSal < leftEmpSal){
+		smaller = rightEmpSal;
+		smallerEmp = rightEmp;
+	}
 
 	// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
+
+	if(currSal > smaller){
+		swap(currEmpLoc, smallerEmp);
+		//A[i] = smallerEmp;
+		//*currEmpLoc = currEmp;
+	}
+
 	//			Then recursively heapify A[smaller].
 	// TODO - Continue recursion as long as i is within range AND either right_child and left_child are still within range.
 }
@@ -66,7 +98,9 @@ void heapify(Employee *A, int i, int n)
  */
 void swap(Employee *e1, Employee *e2)
 {
-	// TODO
+	Employee emp1 = *e1;
+	*e1 = *e2;
+	*e2 = emp1;
 }
 
 /**
@@ -76,5 +110,7 @@ void swap(Employee *e1, Employee *e2)
  */
 void printList(Employee *A, int n)
 {
-	// TODO
+	for(int i = 0; i < sizeof(A); i++){
+		printf("%s", A[i].name);
+	}
 }
