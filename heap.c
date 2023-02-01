@@ -20,11 +20,14 @@ void heapSort(Employee *A, int n)
 	// TODO - BuildHeap on the heap
 
 	// TODO - while n > 0:
+	while(n > 0){
+		swap(&A[n-1], &A[0]);
+		n--;
+		heapify(A, 0, n);//This may need to be n-1
+	}
 	// TODO - swap A[n-1] with A[0], since A[0] is the smallest number.
 	// TODO - A[n-1] now sorted in place, so decrement n
 	// TODO - Heapify the elements from A[0] up to A[n-1] (which leaves the newly sorted element alone)
-	//heapify(tempEmp, );
-	//
 }
 
 /**
@@ -38,8 +41,7 @@ void heapSort(Employee *A, int n)
 void buildHeap(Employee *A, int n)
 {
 	// TODO - heapify() every element from A[n/2] down-to A[0]
-	int max = sizeof(*A) / 2;
-	for(int i = max; i > 0; i++){
+	for(int i = (n/2); i > 0; i++){
 		heapify(A, i, n);
 	}
 }
@@ -73,19 +75,17 @@ void heapify(Employee *A, int i, int n)
 	int currSal = currEmp.salary;
 
 	int smaller = leftEmpSal;
-	Employee smallerEmp = leftEmp;
+	Employee *smallerEmpLoc = &leftEmp;
 
 	if(rightEmpSal < leftEmpSal){
 		smaller = rightEmpSal;
-		smallerEmp = rightEmp;
+		smallerEmpLoc = &rightEmp;
 	}
 
 	// TODO - recursively check if the salary at A[i] > the salary at A[smaller]. If it is, swap the two.
 
 	if(currSal > smaller){
-		swap(currEmpLoc, smallerEmp);
-		//A[i] = smallerEmp;
-		//*currEmpLoc = currEmp;
+		swap(currEmpLoc, smallerEmpLoc);
 	}
 
 	//			Then recursively heapify A[smaller].
