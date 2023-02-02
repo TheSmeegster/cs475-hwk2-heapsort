@@ -4,18 +4,34 @@
 
 int main(int argc, char *argv[])
 {
-	Employee emp1;
-	emp1 = (Employee){.name = "Dan", .salary = 5};
+	//Initializes the company with a constant max size
+	int MAX_COMPANY_SIZE = 5;
+	Employee company[MAX_COMPANY_SIZE];
 
-	Employee emp2;
-	emp2 = (Employee){.name = "Mark", .salary = 6};
+	//Prompts user for input to create a new employee until the company is filled
+	for(int i = 0; i < MAX_COMPANY_SIZE; i++){
 
-	Employee emp3;
-	emp3 = (Employee){.name = "Human", .salary = 2};
+		Employee emp;
 
-	Employee company[] = {emp1, emp2, emp3};
+		printf("Name : ");
+		scanf("%s", emp.name);
 
-	heapSort(company, 3);
+		printf("Salary : ");
+		scanf("%d", &emp.salary);
+
+		company[i] = emp;
+	}
+
+	//Prints the list of employees out prior to organizing
+	printf("Before organization : \n");
+	printList(company, (sizeof(company)/sizeof(company[0])));
+
+	//Runs heapsort on the size of the company - 1(for loops)
+	heapSort(company, (sizeof(company)/sizeof(company[0])) - 1);
+
+	//Prints the list of employees out after organizing
+	printf("After organization : \n");
+	printList(company, (sizeof(company)/sizeof(company[0])));
 
 	return 0;
 }
