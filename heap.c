@@ -45,6 +45,7 @@ void buildHeap(Employee *A, int n)
 	}
 }
 
+
 /**
  * We want to start with A[i] and percolate it downward
  * if it is greater than either left or right child.
